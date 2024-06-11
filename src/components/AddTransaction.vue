@@ -1,56 +1,54 @@
 <template>
-    <div class="add-transaction">
-      <h2>Add Transaction</h2>
-      <form @submit.prevent="addTransaction">
-        <div>
-          <label for="description">Description:</label>
-          <input type="text" v-model="description" required />
-        </div>
-        <div>
-          <label for="amount">Amount:</label>
-          <input type="number" v-model="amount" required />
-        </div>
-        <div>
-          <label>
-            <input type="radio" value="income" v-model="type" /> Income
-          </label>
-          <label>
-            <input type="radio" value="expense" v-model="type" /> Expense
-          </label>
-        </div>
-        <button type="submit">Add</button>
-      </form>
+  <h3>Add new transaction</h3>
+  <form id="form" @submit.prevent="onSubmit">
+    <div class="form-control">
+      <label for="text">Text</label>
+      <input type="text" id="text" placeholder="Enter text..." v-model="text" />
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        description: '',
-        amount: 0,
-        type: 'income'
-      };
-    },
-    methods: {
-      addTransaction() {
-        const transaction = {
-          description: this.description,
-          amount: parseFloat(this.amount),
-          type: this.type,
-          date: new Date()
-        };
-        this.$emit('add-transaction', transaction);
-        this.description = '';
-        this.amount = 0;
-        this.type = 'income';
-      }
-    }
-  };
-  </script>
-  <style>
-  .add-transaction {
-    margin-bottom: 20px;
+    <div class="form-control">
+      <label for="amount"
+        >Amount <br />
+        (negative - expense, positive - income)</label
+      >
+      <input
+        type="text"
+        id="amount"
+        placeholder="Enter amount..."
+        v-model="amount"
+      />
+    </div>
+    <button class="btn">Add transaction</button>
+  </form>
+</template>
+
+<script setup>
+import { useToast } from 'vue-toastification';
+import { ref } from 'vue';
+
+const text = ref('');
+const amount = ref('');
+
+// Get toast interface
+const toast = useToast();
+
+const emit = defineEmits(['transactionSubmitted']);
+
+const onSubmit = () => {
+  if (!text.value || !amount.value) {
+    // Display a toast error message if either field is empty
+    toast.error('Both fields must be filled.');
+    return;
   }
-  </style>
-  
+
+  const transactionData = {
+    text: text.value,
+    amount: parseFloat(amount.value),
+  };
+
+  emit('transactionSubmitted', transactionData);
+
+  // Clear form fields
+  text.value = '';
+  amount.value = '';
+};
+</script>

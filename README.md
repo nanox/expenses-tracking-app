@@ -1,5 +1,15 @@
 # Expenses Tracking PWA
-Progressive web app (PWA) that allows users to record their daily income and expenses, keep a history of a month's financial activities, and view a tracking of expenses using a graph report.
+An progressive web app (PWA) built with Vue that allows users to 
+
+- Record their daily income/expenses,
+- Track balance
+- Save data to local storage
+- Keep a history of a month's financial activities, and 
+- View a tracking of expenses using a chart.
+
+- [Vue Toastification](https://github.com/Maronato/vue-toastification) for notifications
+
+<img src="public/screen.png" width="400" />
 
 ## Project setup
 ```
