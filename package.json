@@ -11,7 +11,8 @@
     "chart.js": "^4.4.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
-    "vue-chartjs": "^5.3.1"
+    "vue-chartjs": "^5.3.1",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -25,7 +26,8 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "vue/setup-compiler-macros": true
     },
     "extends": [
       "plugin:vue/vue3-essential",
@@ -34,7 +36,10 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "no-unused-vars": ["error", { "varsIgnorePattern": "^props$" }]
+    }
   },
   "browserslist": [
     "> 1%",
